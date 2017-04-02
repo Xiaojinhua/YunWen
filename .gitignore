@@ -11,7 +11,7 @@
 *.userprefs
 YunWen.csproj.FileListAbsolute.txt
 /YunWen/YunWen/obj/Debug/
-
+/YunWen/YunWen/obj/bin/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
