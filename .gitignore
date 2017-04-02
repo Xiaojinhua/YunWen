@@ -9,7 +9,7 @@
 *.cache
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-/YunWen/YunWen/obj/Debug/*.txt
+/YunWen/YunWen/obj/Debug/YunWen.csproj.FileListAbsolute.txt
 
 # Build results
 [Dd]ebug/
