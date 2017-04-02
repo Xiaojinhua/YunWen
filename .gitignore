@@ -12,6 +12,8 @@
 YunWen.csproj.FileListAbsolute.txt
 /YunWen/YunWen/obj/Debug/
 /YunWen/YunWen/obj/bin/
+/YunWen/YunWen.Tests/Debug/
+/YunWen/YunWen.Tests/bin/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
