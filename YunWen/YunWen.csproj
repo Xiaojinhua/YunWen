@@ -93,6 +93,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\ApiController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -100,6 +101,7 @@
     </Compile>
     <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Models\ResultModel.cs" />
+    <Compile Include="Models\SupplierGeoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

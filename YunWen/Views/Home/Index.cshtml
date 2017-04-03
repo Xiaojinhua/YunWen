@@ -4,27 +4,78 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-        body, html, #allmap {
+        /*body, html, #allmap {
             width: 100%;
             height: 100%;
             overflow: hidden;
             margin: 0;
             font-family: "微软雅黑";
-        }
+        }*/
+        body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{width:100%;height:500px;}
+        #r-result{width:100%;margin-top:5px;}
+		p{margin:5px; font-size:14px;}
     </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=stbhIEGUbpGHd8KooYtF0eO6cqGTtlGM"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=V2XGwSWjgfsIAB46PmuyL9Z5PY3RFBfG"></script>
     <script type="text/javascript" src="~/Scripts/jquery-3.1.1.min.js"></script>
     <title>地图展示</title>
 </head>
 <body>
     <div id="allmap"></div>
+    <div id="r-result"><input type="button" value="获取附近商家" onclick="getSuppliers();" /> </div>
+    @*<div id="r-result">
+        <input type="button" onclick="add_control();" value="添加" />
+        <input type="button" onclick="delete_control();" value="删除" />
+    </div>*@
 </body>
 </html>
 <script type="text/javascript">
 	// 百度地图API功能
 	var map = new BMap.Map("allmap");    // 创建Map实例
-	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);  // 初始化地图,设置中心点坐标和地图级别
 	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
 	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
 	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function (r) {
+	    if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+	        var mk = new BMap.Marker(r.point);
+	        var label = new BMap.Label("我的位置", { offset: size });
+	        mk.setLabel(label);
+	        map.addOverlay(mk);
+	        map.panTo(r.point);
+	        //alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+	    }
+	    else {
+	        alert('failed' + this.getStatus());
+	    }
+	}, { enableHighAccuracy: true })
+	//var point = new BMap.Point("120.225904", "30.261136");
+	var size = new BMap.Size(10, -20);
+	//var label = new BMap.Label("haahahhahahaha", { offset: size });
+	//var mark1 = new BMap.Marker(point, { title: "我的家，过来玩啊" });
+	//mark1.setLabel(label);
+	//map.addOverlay(mark1);
+	function getSuppliers() {
+	    $.ajax({
+	        url: "/api/getinfo",
+	        type: "get",
+	        dataType: "json",
+	        success: function (data) {
+	            console.log(data);
+	            if (!data.Success) {
+	                alert("获取数据失败");
+	            } else {
+	                $.each(data.Obj, function (index, element) {
+	                    var point = new BMap.Point(element.La, element.Lo);
+	                    var label = new BMap.Label(element.SupplierName, { offset: size });
+	                    var mark = new BMap.Marker(point, { title: element.Address });
+	                    mark.setLabel(label);
+	                    map.addOverlay(mark);
+	                });
+	            }
+	        }
+	    });
+	}
 </script>
