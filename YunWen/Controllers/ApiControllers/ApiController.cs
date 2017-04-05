@@ -9,7 +9,13 @@ namespace YunWen.Controllers
 {
     public class ApiController : Controller
     {
-        public ActionResult GetInfo()
+        /// <summary>
+        /// 获取未知附近商家信息
+        /// </summary>
+        /// <param name="longitude">经度</param>
+        /// <param name="latitude">纬度</param>
+        /// <returns></returns>
+        public ActionResult GetInfo(string longitude, string latitude)
         {
             var suppliers = new List<SupplierGeoModel>();
             suppliers.Add(new SupplierGeoModel()
@@ -33,10 +39,10 @@ namespace YunWen.Controllers
                 La = "120.212681",
                 Lo = "30.263757",
             });
-            var result = new ResultModel();
+            var result = new ResultModel<object>();
             result.Success = true;
             result.Obj = suppliers;
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -9,6 +9,14 @@ namespace YunWen.Models
     {
         public bool Success { get; set; } = false;
         public string Msg { get; set; }
-        public object Obj { get; set; }
+    }
+
+    public class ResultModel<T> : ResultModel
+    {
+        public ResultModel()
+        {
+            this.Obj = default(T);
+        }
+        public T Obj { get; set; }
     }
 }
